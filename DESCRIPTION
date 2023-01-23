@@ -1,0 +1,33 @@
+Package: stocapp
+Type: Package
+Title: Bias Correction via Stochastic Approximation
+Version: 0.1.0
+Authors@R: c(
+    person("Samuel", "Orso", email="Samuel.Orso@unige.ch", role=c("aut","cre")),
+    person("Stéphane", "Guerrier", role="ctb"))
+Maintainer: Samuel Orso <Samuel.Orso@unige.ch>
+Description: An implementation of the iterative bootstrap procedure 
+    to correct the estimation bias of a fitted model object. This
+    procedure has better bias correction properties than the 
+    bootstrap bias correction technique.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 4.0.0)
+Imports:
+    betareg,
+    lme4,
+    Formula,
+    MASS,
+    Matrix (>= 1.5-1),
+    methods,
+    Rdpack (>= 0.7),
+    stats,
+    utils,
+    VGAM
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    nlraa,
+    rmarkdown
+RoxygenNote: 7.2.3
