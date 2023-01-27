@@ -84,6 +84,7 @@ stocapp.betareg <- function(object, thetastart=NULL, control=list(...), ...){
 
   # initial value
   diff <- rep(NA_real_, control$maxit)
+  pi_star <- rep(NA_real_, p)
 
   # Iterative bootstrap algorithm:
   while(test_theta > control$tol && k < control$maxit){
@@ -97,32 +98,29 @@ stocapp.betareg <- function(object, thetastart=NULL, control=list(...), ...){
     }
 
     # approximate
-    tmp_pi <- matrix(NA_real_,nrow=p,ncol=control$H)
-    for(h in seq_len(control$H)){
-      control1$seed <- control$seed + h
+    control1$seed <- control$seed + k
+    sim <- simulation(tmp_object,control1)
+    env_stocapp$data$y <- sim
+    fit_tmp <- tryCatch(error = function(cnd) NULL, {eval(cl,env_stocapp)})
+    iter <- 1L
+    while(is.null(fit_tmp) && iter < 10L){
+      control1$seed <- control$seed + control$maxit * k + iter
       sim <- simulation(tmp_object,control1)
       env_stocapp$data$y <- sim
       fit_tmp <- tryCatch(error = function(cnd) NULL, {eval(cl,env_stocapp)})
-      iter <- 1L
-      while(is.null(fit_tmp) && iter < 10L){
-        control1$seed <- control$seed + control$H * h + iter
-        sim <- simulation(tmp_object,control1)
-        env_stocapp$data$y <- sim
-        fit_tmp <- tryCatch(error = function(cnd) NULL, {eval(cl,env_stocapp)})
-        iter <- iter + 1L
-      }
-      if(is.null(fit_tmp)) next
-      tmp_pi[,h] <- coef(fit_tmp)
+      iter <- iter + 1L
     }
-    pi_star <- control$func(tmp_pi)
+    if(is.null(fit_tmp)) next
+    pi_star[1:p0] <- coef(fit_tmp)
 
     # update value
     delta <- pi0 - pi_star
-    t1 <- t0 + delta
+    alpha <- 1.0 / (k + 1.0)
+    t1 <- t0 + alpha * delta
     if(phiIdentity && control$constraint) t1[p] <- exp(log(t0[p]) + log(pi0[p]) - log(pi_star[p]))
 
     # test diff between thetas
-    test_theta <- sum(delta^2)
+    test_theta <- sum((t1-t0)^2)
     if(k>0) diff[k] <- test_theta
 
     # initialize test
@@ -137,13 +135,13 @@ stocapp.betareg <- function(object, thetastart=NULL, control=list(...), ...){
     }
 
     # Alternative stopping criteria, "statistically flat progress curve" :
-    if(k > 10L){
-      try1 <- diff[k:(k-10)]
-      try2 <- k:(k-10)
-      if(var(try1)<=1e-3) break
-      mod <- lm(try1 ~ try2)
-      if(summary(mod)$coefficients[2,4] > 0.2) break
-    }
+    # if(k > 10L){
+    #   try1 <- diff[k:(k-10)]
+    #   try2 <- k:(k-10)
+    #   if(var(try1)<=1e-3) break
+    #   mod <- lm(try1 ~ try2)
+    #   if(summary(mod)$coefficients[2,4] > 0.2) break
+    # }
 
     # update increment
     k <- k + 1L
