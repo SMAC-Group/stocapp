@@ -178,8 +178,7 @@ stocapp.betareg <- function(object, thetastart=NULL, control=list(...), ...){
     iteration = k,
     of = sqrt(drop(crossprod(delta))),
     estimate = t0,
-    test_theta = test_theta,
-    boot = tmp_pi)
+    test_theta = test_theta)
 
   new("StocappBetareg",
       object = tmp_object,
