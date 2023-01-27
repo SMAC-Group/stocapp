@@ -111,7 +111,7 @@ stocapp.betareg <- function(object, thetastart=NULL, control=list(...), ...){
       iter <- iter + 1L
     }
     if(is.null(fit_tmp)) next
-    pi_star[1:p0] <- coef(fit_tmp)
+    pi_star <- coef(fit_tmp)
 
     # update value
     delta <- pi0 - pi_star
