@@ -141,14 +141,14 @@ stocapp.glm <- function(object, thetastart=NULL, control=list(...), extra_param 
     alpha <- 1.0 / (k + 1.0)
     t1 <- t0 + alpha * delta
     if(extra_param && control$constraint){
-      if(isNegbin){ # specific to negative binomial
-        if(t1[p] <= 0){
-          out_of_space_counter <- out_of_space_counter + 1.0
-          t1[p] <- 1.0 / out_of_space_counter
-        }
-      } else {
+      # if(isNegbin){ # specific to negative binomial
+      #   if(t1[p] <= 0){
+      #     out_of_space_counter <- out_of_space_counter + 1.0
+      #     t1[p] <- 1.0 / out_of_space_counter
+      #   }
+      # } else {
         t1[p] <- exp(log(t0[p]) + log(pi0[p]) - log(pi_star[p]))
-      }
+      # }
     }
 
     # test diff between thetas
