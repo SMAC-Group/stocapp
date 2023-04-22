@@ -1,5 +1,5 @@
 # These functions are
-# Copyright (C) 2022 S. Orso, University of Geneva
+# Copyright (C) 2022-2023 S. Orso, University of Geneva
 # All rights reserved.
 
 ## Class definition for the package
@@ -26,6 +26,14 @@ setClass("StocappBetareg",
 setClass("StocappGlm",
          slots = list(
            object = "glm",
+           stocapp_extra = "list"))
+
+setOldClass("glmrob2")
+# @describeIn Stocapp fitted model by \code{glmrob2} from \pkg{glmrob2}
+#' @export
+setClass("StocappGlmrob2",
+         slots = list(
+           object = "glmrob2",
            stocapp_extra = "list"))
 
 # @describeIn Stocapp fitted model by \code{lm} from \pkg{stats}
@@ -69,7 +77,7 @@ setClass("StocappVglm",
 #' @title
 #' An S4 class union for \code{stocapp}
 #' @description
-#' Members of the union are \linkS4class{StocappBetareg}, \linkS4class{StocappGlm},
+#' Members of the union are \linkS4class{StocappBetareg}, \linkS4class{StocappGlm}, \linkS4class{StocappGlmrob2},
 #' \linkS4class{StocappLm}, \linkS4class{StocappLmer}, \linkS4class{StocappNegbin},
 #' \linkS4class{StocappNls}, \linkS4class{StocappVglm}
 #' @details
@@ -84,6 +92,7 @@ setClass("StocappVglm",
 setClassUnion(name = "Stocapp",
               members = c("StocappBetareg",
                           "StocappGlm",
+                          "StocappGlmrob2",
                           "StocappLm",
                           "StocappLmer",
                           "StocappNegbin",

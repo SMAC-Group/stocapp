@@ -10,7 +10,7 @@ corrected by the \code{stocapp} (see \code{\link{getObject}}) and a second \code
 extra meta data from \code{stocapp} (see \code{\link{getExtra}}).
 }
 \description{
-Members of the union are \linkS4class{StocappBetareg}, \linkS4class{StocappGlm},
+Members of the union are \linkS4class{StocappBetareg}, \linkS4class{StocappGlm}, \linkS4class{StocappGlmrob2},
 \linkS4class{StocappLm}, \linkS4class{StocappLmer}, \linkS4class{StocappNegbin},
 \linkS4class{StocappNls}, \linkS4class{StocappVglm}
 }

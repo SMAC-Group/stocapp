@@ -18,6 +18,7 @@ Imports:
     betareg,
     lme4,
     Formula,
+    glmrob2,
     MASS,
     Matrix (>= 1.5-1),
     methods,
@@ -30,4 +31,6 @@ Suggests:
     knitr,
     nlraa,
     rmarkdown
+Remotes:
+    SMAC-Group/glmrob2
 RoxygenNote: 7.2.3
