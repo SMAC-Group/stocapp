@@ -18,7 +18,7 @@
 #' @return
 #' A fitted model \code{object} of class \linkS4class{stocapp}.
 #' @details
-#' The iterative bootstrap procedure is descrstocapped in
+#' The iterative bootstrap procedure is described in
 #' \insertCite{kuk1995;textual}{stocapp} and further
 #' studied by \insertCite{guerrier2019;textual}{stocapp} and
 #' \insertCite{guerrier2020;textual}{stocapp}. The \emph{k}th iteration of this
